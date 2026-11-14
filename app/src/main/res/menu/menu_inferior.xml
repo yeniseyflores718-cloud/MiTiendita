@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/menu"
+        android:title="Menú" />
+    <item
+        android:id="@+id/nav_inventario"
+        android:icon="@drawable/inventario"
+        android:title="Inventario" />
+    <item
+        android:id="@+id/nav_venta"
+        android:icon="@drawable/venta"
+        android:title="Venta" />
+    <item
+        android:id="@+id/nav_pedidos"
+        android:icon="@drawable/pedidos"
+        android:title="Pedidos" />
+</menu>
