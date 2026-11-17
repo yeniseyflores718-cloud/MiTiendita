@@ -69,6 +69,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista_confirmacion_del_pedido"
+            android:name=".vista.productos"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.empleados"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
