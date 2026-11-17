@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:id="@+id/imgProductoVendido"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/subir_imagen"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/txtNombreProductoVendido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:text="Refresco 600 ml"
+        android:textColor="#1A1A1A"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtPiezasVendidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#DCEEF9"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
+        android:text="24 pzas"
+        android:textColor="#1677D2"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
