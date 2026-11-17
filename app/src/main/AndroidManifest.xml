@@ -67,6 +67,10 @@
             android:name=".item_carrito_productos"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista_confirmacion_del_pedido"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

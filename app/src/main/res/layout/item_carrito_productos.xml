@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Imagen del producto -->
+
         <ImageView
             android:id="@+id/imgProductoCarrito"
             android:layout_width="60dp"
@@ -27,7 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Nombre del producto -->
         <TextView
             android:id="@+id/txtNombreProductoCarrito"
             android:layout_width="0dp"
@@ -55,7 +54,7 @@
             app:layout_constraintStart_toEndOf="@+id/imgProductoCarrito"
             app:layout_constraintTop_toBottomOf="@+id/txtNombreProductoCarrito" />
 
-        <!-- Precio -->
+
         <TextView
             android:id="@+id/txtPrecioCarrito"
             android:layout_width="wrap_content"
@@ -70,7 +69,7 @@
             app:layout_constraintStart_toEndOf="@+id/imgProductoCarrito"
             app:layout_constraintTop_toBottomOf="@+id/txtPresentacionCarrito" />
 
-        <!-- Botón Menos (-) -->
+
         <Button
             android:id="@+id/btnMenos"
             android:layout_width="49dp"
@@ -104,7 +103,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnMas"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Botón Más (+) -->
+
         <Button
             android:id="@+id/btnMas"
             android:layout_width="52dp"
