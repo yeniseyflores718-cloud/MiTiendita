@@ -52,10 +52,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivityDescripcion_de_producto"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".DescripcionDeProducto"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -69,11 +65,34 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista_confirmacion_del_pedido"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".vista.productos"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista.empleados"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.VistaMisPedidos"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.CuentaCliente"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.MenuEmpleado"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.PedidosPendientes"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.DetallePedido"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
