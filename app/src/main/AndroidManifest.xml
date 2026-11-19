@@ -23,18 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".vista.nuevaVenta"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".vista.inventario"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".vista.actualizarExistencias"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".vista.administrador"
             android:exported="false"
@@ -44,37 +38,18 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".crear_cuenta"
+            android:name=".vista.crear_cuenta"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Busqueda_de_producto"
+            android:name=".vista.Busqueda_de_producto"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".DescripcionDeProducto"
+            android:name=".vista.DescripcionDeProducto"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".VisualizacionDelCarrito"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".item_carrito_productos"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".vista_confirmacion_del_pedido"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".vista.productos"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".vista.empleados"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".vista.VistaMisPedidos"
             android:exported="false"

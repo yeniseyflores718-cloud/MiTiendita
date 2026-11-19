@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescripcionDeProducto">
+    tools:context=".vista.DescripcionDeProducto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/encabezado"
@@ -101,85 +101,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="Cantidad"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toStartOf="@+id/btnCantidad_Menos"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/encabezado"
-        app:layout_constraintVertical_bias="0.978" />
-
-    <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         android:text="[DESCRIPCIÓN DEL PRODUCTO]"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="333dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="#1581D5"
-        android:text="Agregar al carrito"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnCantidad_Menos"
-        android:layout_width="57dp"
-        android:layout_height="53dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="-"
-        android:textColor="#022A26"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.453" />
+        tools:layout_editor_absoluteY="408dp" />
 
-    <Button
-        android:id="@+id/btnCantidad_Mas"
-        android:layout_width="62dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="215dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="+"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.033" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toStartOf="@+id/btnCantidad_Mas"
-        app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toEndOf="@+id/btnCantidad_Menos"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.529" />
 </androidx.constraintlayout.widget.ConstraintLayout>
