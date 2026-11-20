@@ -109,21 +109,6 @@
                     app:strokeColor="#EAEAEA"
                     app:strokeWidth="1dp"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFiltroAnio"
-                    android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="Año"
-                    android:textAllCaps="false"
-                    android:textColor="#8A8A8A"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="#FFFFFF"
-                    app:cornerRadius="10dp"
-                    app:strokeColor="#EAEAEA"
-                    app:strokeWidth="1dp"/>
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView

@@ -6,6 +6,7 @@ import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
+import com.example.mitiendita.modelo.ReportesResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -33,4 +34,11 @@ interface ApiService {
     ): InventarioResponse
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
+
+
+    @GET("reportes.php")
+    suspend fun obtenerReportes(
+        @Query("id_usuario") idUsuario: Int,
+        @Query("periodo") periodo: String
+    ): ReportesResponse
 }
