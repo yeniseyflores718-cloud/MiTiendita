@@ -15,14 +15,9 @@
         android:theme="@style/Theme.MiTiendita">
         <activity
             android:name=".vista.MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".vista.inventario"
             android:exported="false"
@@ -33,8 +28,14 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista.inicio_de_sesion"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".vista.crear_cuenta"
             android:exported="false"
