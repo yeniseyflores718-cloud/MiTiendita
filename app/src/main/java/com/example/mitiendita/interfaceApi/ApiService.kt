@@ -34,4 +34,15 @@ interface ApiService {
     ): InventarioResponse
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
+
+    @GET("obtener_categorias.php")
+    suspend fun obtenerCategorias(
+        @Query("solo_categorias") soloCategorias: Int = 1
+    ): CategoriaResponse
+
+    @GET("obtener_categorias.php")
+    suspend fun filtrarProductos(
+        @Query("nombre") nombre: String = "",
+        @Query("id_categoria") idCategoria: Int = 0
+    ): CategoriaResponse
 }
