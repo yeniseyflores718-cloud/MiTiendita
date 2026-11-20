@@ -1,4 +1,36 @@
 package com.example.mitiendita.interfaceApi
 
+import com.example.mitiendita.modelo.EstadoPedidoRequest
+import com.example.mitiendita.modelo.EstadoPedidoResponse
+import com.example.mitiendita.modelo.InventarioResponse
+import com.example.mitiendita.modelo.LoginRequest
+import com.example.mitiendita.modelo.LoginResponse
+import com.example.mitiendita.modelo.ProductosResponse
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
+
 interface ApiService {
+    @POST("login.php")
+    suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
+    @GET("productos.php")
+    suspend fun obtenerProductos(): ProductosResponse
+
+    @GET("productos.php")
+    suspend fun obtenerProducto(@Query("id_producto") idProducto: Int): ProductosResponse
+
+    @GET("inventario.php")
+    suspend fun obtenerInventario(
+        @Query("id_usuario") idUsuario: Int,
+        @Query("stock_bajo") stockBajo: Boolean? = null
+    ): InventarioResponse
+
+    @GET("inventario.php")
+    suspend fun obtenerInventarioProducto(
+        @Query("id_usuario") idUsuario: Int,
+        @Query("id_producto") idProducto: Int
+    ): InventarioResponse
+    @POST("estado_pedido.php")
+    suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
 }
