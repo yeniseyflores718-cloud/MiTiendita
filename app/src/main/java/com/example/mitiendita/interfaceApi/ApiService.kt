@@ -1,13 +1,12 @@
 package com.example.mitiendita.interfaceApi
 
-import com.example.mitiendita.modelo.CategoriaResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
 import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
-import com.example.mitiendita.modelo.ReportesResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -15,8 +14,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("login.php")
-    suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
-
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
     @GET("productos.php")
     suspend fun obtenerProductos(): ProductosResponse
 
@@ -34,7 +32,6 @@ interface ApiService {
         @Query("id_usuario") idUsuario: Int,
         @Query("id_producto") idProducto: Int
     ): InventarioResponse
-
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
 
@@ -48,10 +45,4 @@ interface ApiService {
         @Query("nombre") nombre: String = "",
         @Query("id_categoria") idCategoria: Int = 0
     ): CategoriaResponse
-
-    @GET("reportes.php")
-    suspend fun obtenerReportes(
-        @Query("id_usuario") idUsuario: Int,
-        @Query("periodo") periodo: String
-    ): ReportesResponse
 }

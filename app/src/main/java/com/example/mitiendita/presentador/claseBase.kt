@@ -1,5 +1,6 @@
 package com.example.mitiendita.presentador
 
+
 import com.example.mitiendita.vista.baseVista
 
 abstract class claseBase<V : baseVista> : basePresentador<V> {
