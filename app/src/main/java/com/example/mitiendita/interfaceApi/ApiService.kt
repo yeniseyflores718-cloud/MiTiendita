@@ -6,6 +6,7 @@ import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -13,7 +14,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("login.php")
-    suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
     @GET("productos.php")
     suspend fun obtenerProductos(): ProductosResponse
 
