@@ -1,4 +1,4 @@
-package com.example.mitiendita.vista
+package com.example.mitiendita.Adaptador
 
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +41,7 @@ class ProductosAdaptador(
         holder.txtPrecio.text = "$${producto.precioV}"
 
         Glide.with(holder.itemView.context)
-            .load(producto.imagen)
+            .load("https://sixsevenbanda.uthhbola8.com/apis/" + producto.imagen)
             .placeholder(R.drawable.catalogo)
             .error(R.drawable.catalogo)
             .into(holder.imgProducto)

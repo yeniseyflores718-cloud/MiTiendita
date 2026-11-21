@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mitiendita.Adaptador.ProductosAdaptador
 import com.example.mitiendita.R
 import com.example.mitiendita.modelo.Producto
 import com.example.mitiendita.modelo.dataCategorias
