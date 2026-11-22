@@ -11,6 +11,7 @@ import kotlin.jvm.java
 
 object RetrofitCliente {
     private const val BASE_URL = "https://sixsevenbanda.uthhbola8.com/apis/"
+    const val BASE_URL_IMG = "https://yenisey.4buthh.com/miTiendita/raiz/"
 
     private val jsonConfig= Json {
         ignoreUnknownKeys=true

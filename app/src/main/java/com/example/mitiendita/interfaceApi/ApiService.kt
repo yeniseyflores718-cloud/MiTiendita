@@ -7,6 +7,8 @@ import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
+import com.example.mitiendita.modelo.RegistroRequest
+import com.example.mitiendita.modelo.RegistroResponse
 import com.example.mitiendita.modelo.ReportesResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,14 +28,10 @@ interface ApiService {
     @GET("inventario.php")
     suspend fun obtenerInventario(
         @Query("id_usuario") idUsuario: Int,
-        @Query("stock_bajo") stockBajo: Boolean? = null
+        @Query("stock_bajo") stockBajo: Boolean = false,
+        @Query("buscar") buscar: String = ""
     ): InventarioResponse
 
-    @GET("inventario.php")
-    suspend fun obtenerInventarioProducto(
-        @Query("id_usuario") idUsuario: Int,
-        @Query("id_producto") idProducto: Int
-    ): InventarioResponse
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
 
@@ -53,4 +51,6 @@ interface ApiService {
         @Query("id_usuario") idUsuario: Int =0,
         @Query("periodo") periodo: String =""
     ): ReportesResponse
+    @POST("registro.php")
+    suspend fun registrar(@Body request: RegistroRequest): Response<RegistroResponse>
 }
