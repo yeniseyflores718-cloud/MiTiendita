@@ -58,7 +58,6 @@ class inventario : AppCompatActivity() {
         }
 
         btnStockBajo.setOnClickListener {
-            txtBuscar2.text.clear()
             presentador.cargarStockBajo()
         }
 
@@ -75,10 +74,34 @@ class inventario : AppCompatActivity() {
             }
         })
 
+        bottom_nav = findViewById(R.id.bottom_nav)
+        bottom_nav.selectedItemId = R.id.nav_inventario
+
+        bottom_nav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_menu -> {
+                    finish()
+                    true
+                }
+
+                R.id.nav_inventario -> {
+                    true
+                }
+
+                else -> true
+            }
+        }
+
         presentador.iniciar()
     }
 
     fun mostrarProductos(productos: List<dataProductoInventario>) {
+        Toast.makeText(
+            this,
+            "Productos recibidos: ${productos.size}",
+            Toast.LENGTH_LONG
+        ).show()
+
         adaptador.actualizarLista(productos)
     }
 
