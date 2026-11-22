@@ -1,7 +1,11 @@
 package com.example.mitiendita.vista
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -21,7 +25,7 @@ class inicio_de_sesion : AppCompatActivity(), baseVista.View {
     private lateinit var etCorreo: EditText
     private lateinit var etContrasena: EditText
     private lateinit var btnLogin: Button
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,6 +36,33 @@ class inicio_de_sesion : AppCompatActivity(), baseVista.View {
 
         presenter = loginPresenter(this, lifecycleScope)
 
+        var contraVisible = false
+        etContrasena.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val icono = etContrasena.compoundDrawables[2]
+                if (icono != null &&
+                    event.rawX >= etContrasena.right - icono.bounds.width() - etContrasena.paddingEnd - 20) {
+
+                    contraVisible = !contraVisible
+                    etContrasena.inputType = if (contraVisible)
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    else
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                    etContrasena.typeface = Typeface.DEFAULT
+                    etContrasena.setCompoundDrawablesWithIntrinsicBounds(
+                        0, 0,
+                        if (contraVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off,
+                        0
+                    )
+                    etContrasena.setSelection(etContrasena.text.length)
+                    v.performClick()
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+
         btnLogin.setOnClickListener {
             presenter.iniciarSesion(etCorreo.text.toString(), etContrasena.text.toString())
         }
@@ -40,6 +71,9 @@ class inicio_de_sesion : AppCompatActivity(), baseVista.View {
         }
         findViewById<Button>(R.id.btnVerSinIniciarSesion).setOnClickListener {
             startActivity(Intent(this, Busqueda_de_producto::class.java))
+        }
+        findViewById<TextView>(R.id.textView15).setOnClickListener {
+            startActivity(Intent(this, Recuperar_Contrasena::class.java))
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

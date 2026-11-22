@@ -1,5 +1,6 @@
 package com.example.mitiendita.interfaceApi
 
+import com.example.mitiendita.modelo.CategoriaResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
 import com.example.mitiendita.modelo.InventarioResponse
