@@ -24,10 +24,9 @@ interface ApiService {
 
     @GET("inventario.php")
     suspend fun obtenerInventario(
-        @Query("bajo") bajo: Int? = null,
-        @Query("buscar") buscar: String = "",
-        @Query("id_categoria") idCategoria: Int = 0,
-        @Query("id_Producto") idProducto: Int = 0
+        @Query("id_usuario") idUsuario: Int,
+        @Query("stock_bajo") stockBajo: Boolean = false,
+        @Query("buscar") buscar: String = ""
     ): InventarioResponse
 
     @POST("estado_pedido.php")

@@ -15,7 +15,6 @@ class InventarioAdaptador(
 ) : RecyclerView.Adapter<InventarioAdaptador.ProductoViewHolder>() {
 
     class ProductoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val tvCodigo2: TextView = itemView.findViewById(R.id.tvCodigo2)
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvPrecio2: TextView = itemView.findViewById(R.id.tvPrecio2)
@@ -31,7 +30,6 @@ class InventarioAdaptador(
     }
 
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
-
         val producto = listaProductos[position]
 
         holder.tvCodigo2.text = "ID: ${producto.idProducto}"
@@ -39,8 +37,8 @@ class InventarioAdaptador(
         holder.tvPrecio2.text = "$${producto.precioV}"
         holder.tvStock.text = producto.stockAct.toString()
 
-        when (producto.nivel) {
-            "agotado" -> {
+        when {
+            producto.stockAct == 0 -> {
                 holder.tvEstado.text = "Agotado"
                 holder.tvEstado.setBackgroundTintList(
                     android.content.res.ColorStateList.valueOf(Color.parseColor("#FCE4E4"))
@@ -48,12 +46,20 @@ class InventarioAdaptador(
                 holder.tvEstado.setTextColor(Color.parseColor("#C62828"))
             }
 
-            "bajo" -> {
+            producto.stockBajo -> {
                 holder.tvEstado.text = "Stock bajo"
                 holder.tvEstado.setBackgroundTintList(
                     android.content.res.ColorStateList.valueOf(Color.parseColor("#FFF0D9"))
                 )
                 holder.tvEstado.setTextColor(Color.parseColor("#B76E00"))
+            }
+
+            producto.estado == "Inactivo" -> {
+                holder.tvEstado.text = "Inactivo"
+                holder.tvEstado.setBackgroundTintList(
+                    android.content.res.ColorStateList.valueOf(Color.parseColor("#EEEEEE"))
+                )
+                holder.tvEstado.setTextColor(Color.parseColor("#616161"))
             }
 
             else -> {

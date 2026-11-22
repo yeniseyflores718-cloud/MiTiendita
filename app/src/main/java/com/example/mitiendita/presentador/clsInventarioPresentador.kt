@@ -1,13 +1,20 @@
 package com.example.mitiendita.presentador
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.mitiendita.modelo.clsInventarioModelo
+import clsInventarioModelo
 import com.example.mitiendita.vista.inventario
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 
 class clsInventarioPresentador(val vista: inventario) {
 
     val modelo = clsInventarioModelo()
+
+    private fun obtenerIdUsuario(): Int {
+        return vista.getSharedPreferences("sesion", AppCompatActivity.MODE_PRIVATE)
+            .getInt("id_usuario", 0)
+    }
 
     fun iniciar() {
         cargarInventario()
@@ -16,8 +23,17 @@ class clsInventarioPresentador(val vista: inventario) {
     fun cargarInventario() {
         vista.lifecycleScope.launch {
             try {
-                val respuesta = modelo.obtenerInventario()
-                vista.mostrarProductos(respuesta.productos)
+                val idUsuario = obtenerIdUsuario()
+                val respuesta = modelo.obtenerInventario(idUsuario)
+
+                if (respuesta.exito) {
+                    vista.mostrarProductos(respuesta.productos)
+                } else {
+                    vista.mostrarError(respuesta.mensaje)
+                }
+
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 vista.mostrarError("Error al cargar inventario: " + e.localizedMessage)
             }
@@ -27,8 +43,17 @@ class clsInventarioPresentador(val vista: inventario) {
     fun cargarStockBajo() {
         vista.lifecycleScope.launch {
             try {
-                val respuesta = modelo.obtenerStockBajo()
-                vista.mostrarProductos(respuesta.productos)
+                val idUsuario = obtenerIdUsuario()
+                val respuesta = modelo.obtenerStockBajo(idUsuario)
+
+                if (respuesta.exito) {
+                    vista.mostrarProductos(respuesta.productos)
+                } else {
+                    vista.mostrarError(respuesta.mensaje)
+                }
+
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 vista.mostrarError("Error al cargar stock bajo: " + e.localizedMessage)
             }
@@ -38,8 +63,17 @@ class clsInventarioPresentador(val vista: inventario) {
     fun buscarProducto(nombre: String) {
         vista.lifecycleScope.launch {
             try {
-                val respuesta = modelo.buscarProducto(nombre)
-                vista.mostrarProductos(respuesta.productos)
+                val idUsuario = obtenerIdUsuario()
+                val respuesta = modelo.obtenerInventario(idUsuario)
+
+                if (respuesta.exito) {
+                    vista.mostrarProductos(respuesta.productos)
+                } else {
+                    vista.mostrarError(respuesta.mensaje)
+                }
+
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 vista.mostrarError("Error al buscar producto: " + e.localizedMessage)
             }
