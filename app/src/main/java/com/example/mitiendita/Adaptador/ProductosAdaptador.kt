@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mitiendita.R
 import com.example.mitiendita.modelo.Producto
+import com.example.mitiendita.modelo.RetrofitCliente.BASE_URL_IMG
 
 class ProductosAdaptador(
     private var listaProductos: List<Producto>,
@@ -22,7 +23,7 @@ class ProductosAdaptador(
         val txtNombreProducto: TextView = itemView.findViewById(R.id.txtNombreProducto)
         val txtDescripcion: TextView = itemView.findViewById(R.id.txtDescripcion)
         val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecio)
-        val btnAgregar: Button = itemView.findViewById(R.id.btnAgregar)
+        //val btnAgregar: Button = itemView.findViewById(R.id.btnAgregar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
@@ -41,14 +42,10 @@ class ProductosAdaptador(
         holder.txtPrecio.text = "$${producto.precioV}"
 
         Glide.with(holder.itemView.context)
-            .load("https://sixsevenbanda.uthhbola8.com/apis/" + producto.imagen)
+            .load(BASE_URL_IMG + producto.imagen)
             .placeholder(R.drawable.catalogo)
             .error(R.drawable.catalogo)
             .into(holder.imgProducto)
-
-        holder.btnAgregar.setOnClickListener {
-            onAgregar(producto)
-        }
     }
 
     override fun getItemCount(): Int {
