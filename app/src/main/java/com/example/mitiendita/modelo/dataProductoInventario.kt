@@ -9,8 +9,8 @@ data class dataProductoInventario(
     @SerialName("nombre_producto") val nombreProducto: String = "",
     @SerialName("stock_act") val stockAct: Int = 0,
     @SerialName("stock_min") val stockMin: Int? = null,
-    val estado: String = "",
-    val categoria: String? = null,
-    @SerialName("stock_bajo") val stockBajo: Boolean = false,
-    val movimientos: List<dataMovimientoInventario> = emptyList()
+    @SerialName("precio_c") val precioC: Double = 0.0,
+    @SerialName("precio_v") val precioV: Double = 0.0,
+    val nivel: String = "",
+    val categoria: String? = null
 )

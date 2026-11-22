@@ -24,15 +24,12 @@ interface ApiService {
 
     @GET("inventario.php")
     suspend fun obtenerInventario(
-        @Query("id_usuario") idUsuario: Int,
-        @Query("stock_bajo") stockBajo: Boolean? = null
+        @Query("bajo") bajo: Int? = null,
+        @Query("buscar") buscar: String = "",
+        @Query("id_categoria") idCategoria: Int = 0,
+        @Query("id_Producto") idProducto: Int = 0
     ): InventarioResponse
 
-    @GET("inventario.php")
-    suspend fun obtenerInventarioProducto(
-        @Query("id_usuario") idUsuario: Int,
-        @Query("id_producto") idProducto: Int
-    ): InventarioResponse
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
 
