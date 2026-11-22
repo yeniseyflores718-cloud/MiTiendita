@@ -7,6 +7,8 @@ import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
+import com.example.mitiendita.modelo.RegistroRequest
+import com.example.mitiendita.modelo.RegistroResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -43,4 +45,6 @@ interface ApiService {
         @Query("nombre") nombre: String = "",
         @Query("id_categoria") idCategoria: Int = 0
     ): CategoriaResponse
+    @POST("registro.php")
+    suspend fun registrar(@Body request: RegistroRequest): Response<RegistroResponse>
 }
