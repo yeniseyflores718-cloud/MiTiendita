@@ -10,6 +10,9 @@ import com.example.mitiendita.modelo.ProductosResponse
 import com.example.mitiendita.modelo.RegistroRequest
 import com.example.mitiendita.modelo.RegistroResponse
 import com.example.mitiendita.modelo.ReportesResponse
+import com.example.mitiendita.modelo.RespuestaSimple
+import com.example.mitiendita.modelo.RestablecerRequest
+import com.example.mitiendita.modelo.SolicitarRecuperacionRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -53,4 +56,10 @@ interface ApiService {
     ): ReportesResponse
     @POST("registro.php")
     suspend fun registrar(@Body request: RegistroRequest): Response<RegistroResponse>
+
+    @POST("solicitar_recuperacion.php")
+    suspend fun solicitarRecuperacion(@Body request: SolicitarRecuperacionRequest): Response<RespuestaSimple>
+
+    @POST("restablecer_contrasena.php")
+    suspend fun restablecerContrasena(@Body request: RestablecerRequest): Response<RespuestaSimple>
 }
