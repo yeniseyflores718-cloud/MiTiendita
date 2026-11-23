@@ -3,6 +3,7 @@ package com.example.mitiendita.interfaceApi
 import com.example.mitiendita.modelo.CategoriaResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
+import com.example.mitiendita.modelo.InicioAdminResponse
 import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
@@ -53,4 +54,9 @@ interface ApiService {
     ): ReportesResponse
     @POST("registro.php")
     suspend fun registrar(@Body request: RegistroRequest): Response<RegistroResponse>
-}
+
+    @GET("inicioAdmin.php")
+    suspend fun obtenerInicioAdmin(
+        @Query("id_usuario") idUsuario: Int
+    ): InicioAdminResponse
+ }
