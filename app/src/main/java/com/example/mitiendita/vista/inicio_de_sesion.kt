@@ -25,6 +25,7 @@ class inicio_de_sesion : AppCompatActivity(), baseVista.View {
     private lateinit var etCorreo: EditText
     private lateinit var etContrasena: EditText
     private lateinit var btnLogin: Button
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

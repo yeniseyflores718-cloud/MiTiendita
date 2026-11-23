@@ -24,7 +24,7 @@ data class RangoVentaAdmin(
 
 @Serializable
 data class PedidosInicioAdmin(
-    @SerialName("por_atender") // o "total", según corresponda al 4
+    @SerialName("por_atender") //
     val porAtender: Int = 0
 )
 

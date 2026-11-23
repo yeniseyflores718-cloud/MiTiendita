@@ -9,8 +9,6 @@ import kotlinx.coroutines.withContext
 
 class clsInicioAdminPresentador(private val vista: administrador) {
     private val modeloInicioAdmin = clsInicioAdminModelo()
-
-    // Valida el ID de usuario y consulta los datos en el hilo de red (IO).
     fun cargarInicioAdmin(idUsuario: Int) {
         if (idUsuario <= 0) {
             vista.mostrarErrorInicioAdmin("ID de usuario no válido")
