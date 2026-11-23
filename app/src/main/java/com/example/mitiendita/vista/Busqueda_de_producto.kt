@@ -49,7 +49,9 @@ class Busqueda_de_producto : AppCompatActivity() {
         recyclerProductos.layoutManager = GridLayoutManager(this, 2)
 
         adaptador = ProductosAdaptador(emptyList()) { producto ->
-            Toast.makeText(this, producto.nombreProducto, Toast.LENGTH_SHORT).show()
+            val intent = android.content.Intent(this, DescripcionDeProducto::class.java)
+            intent.putExtra("idProducto", producto.idProducto)
+            startActivity(intent)
         }
 
         recyclerProductos.adapter = adaptador
