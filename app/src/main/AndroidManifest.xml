@@ -74,6 +74,10 @@
             android:name=".vista.Recuperar_Contrasena"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.activity_restablecer_contrasena"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
