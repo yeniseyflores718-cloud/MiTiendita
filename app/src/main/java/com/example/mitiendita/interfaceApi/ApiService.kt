@@ -59,4 +59,5 @@ interface ApiService {
     suspend fun obtenerInicioAdmin(
         @Query("id_usuario") idUsuario: Int
     ): InicioAdminResponse
+    //
  }
