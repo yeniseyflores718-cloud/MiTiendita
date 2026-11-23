@@ -46,6 +46,9 @@ class ProductosAdaptador(
             .placeholder(R.drawable.catalogo)
             .error(R.drawable.catalogo)
             .into(holder.imgProducto)
+        holder.imgProducto.setOnClickListener {
+            onAgregar(producto)
+        }
     }
 
     override fun getItemCount(): Int {
