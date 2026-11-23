@@ -26,6 +26,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".vista.ReportesVentaspro"
+            android:exported="false" />
+        <activity
             android:name=".vista.inicio_de_sesion"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">

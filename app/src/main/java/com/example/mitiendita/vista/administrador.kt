@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat.enableEdgeToEdge
 import androidx.core.view.WindowInsetsCompat
 import com.example.mitiendita.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 
 class administrador : AppCompatActivity() {
+    private lateinit var bottom_nav: BottomNavigationView
+    private lateinit var cardReportes: MaterialCardView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,6 +22,15 @@ class administrador : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        val idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
+
+        cardReportes = findViewById(R.id.cardReportes)
+        cardReportes.setOnClickListener {
+            val intent = Intent(this, ReportesVentaspro::class.java)
+            intent.putExtra("id_usuario", idUsuario)
+            startActivity(intent)
         }
 
         bottom_nav = findViewById(R.id.bottom_nav)
@@ -40,6 +52,4 @@ class administrador : AppCompatActivity() {
             }
         }
     }
-
-    private lateinit var bottom_nav: BottomNavigationView
 }

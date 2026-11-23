@@ -10,11 +10,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mitiendita.Adaptador.ProductosMasVendidosAdaptador
 import com.example.mitiendita.R
 import com.example.mitiendita.modelo.ReportesResponse
 import com.example.mitiendita.presentador.clsReportesPresentador
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import java.util.Collections.emptyList
 
 class ReportesVentaspro : AppCompatActivity() {
 
@@ -28,7 +30,7 @@ class ReportesVentaspro : AppCompatActivity() {
     private lateinit var rvProductosMasVendidos: RecyclerView
 
     private lateinit var presentador: clsReportesPresentador
-    private lateinit var adapterProductos: ProductosMasVendidosAdapter
+    private lateinit var adaptadorProductos_R: ProductosMasVendidosAdaptador
 
     private var idUsuario: Int = 1
     private var periodoActual: String = "semana"
@@ -52,13 +54,12 @@ class ReportesVentaspro : AppCompatActivity() {
         idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
 
         rvProductosMasVendidos.layoutManager = LinearLayoutManager(this)
-        adapterProductos = ProductosMasVendidosAdapter(emptyList())
-        rvProductosMasVendidos.adapter = adapterProductos
+        adaptadorProductos_R = ProductosMasVendidosAdaptador(this, emptyList())
+        rvProductosMasVendidos.adapter = adaptadorProductos_R
 
         btnRegresar.setOnClickListener { finish() }
         btnFiltroSemana.setOnClickListener { seleccionarPeriodo("semana") }
         btnFiltroMes.setOnClickListener { seleccionarPeriodo("mes") }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -103,7 +104,7 @@ class ReportesVentaspro : AppCompatActivity() {
             txtTotalProductosVendidos.text = resumen.productosVendidos.toString()
         }
 
-        adapterProductos.actualizarLista(respuesta.productosMasVendidos ?: emptyList())
+        adaptadorProductos_R.actualizarLista(respuesta.productosMasVendidos ?: emptyList())
     }
 
     fun mostrarMensajeError(error: String) {
