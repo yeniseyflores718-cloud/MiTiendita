@@ -9,6 +9,7 @@ import com.example.mitiendita.modelo.LoginResponse
 import com.example.mitiendita.modelo.ProductosResponse
 import com.example.mitiendita.modelo.RegistroRequest
 import com.example.mitiendita.modelo.RegistroResponse
+import com.example.mitiendita.modelo.ReportesResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -44,6 +45,12 @@ interface ApiService {
         @Query("nombre") nombre: String = "",
         @Query("id_categoria") idCategoria: Int = 0
     ): CategoriaResponse
+
+    @GET("reportes.php")
+    suspend fun obtenerReportes(
+        @Query("id_usuario") idUsuario: Int =0,
+        @Query("periodo") periodo: String =""
+    ): ReportesResponse
     @POST("registro.php")
     suspend fun registrar(@Body request: RegistroRequest): Response<RegistroResponse>
 }
