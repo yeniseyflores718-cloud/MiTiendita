@@ -9,6 +9,10 @@
         android:icon="@drawable/pedidos"
         android:title="Pedidos" />
     <item
+        android:id="@+id/nav_carrito"
+        android:icon="@drawable/carrito"
+        android:title="Carrito" />
+    <item
         android:id="@+id/nav_cuenta"
         android:icon="@drawable/cuenta"
         android:title="Cuenta" />
