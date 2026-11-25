@@ -102,6 +102,8 @@ class inicio_de_sesion : AppCompatActivity(), baseVista.View {
             .putString("token", token)
             .putInt("id_usuario", usuario.idUsuario)
             .putString("nombre", usuario.nombreUsuario)
+            .putString("correo", usuario.correo)
+            .putString("telefono", usuario.telefono)
             .putString("rol", usuario.rol)
             .apply()
 

@@ -1,11 +1,13 @@
 package com.example.mitiendita.vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import com.example.mitiendita.R
 import com.example.mitiendita.modelo.Producto
 import com.example.mitiendita.modelo.dataCategorias
 import com.example.mitiendita.presentador.clsBusquedaProductoPresentador
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Busqueda_de_producto : AppCompatActivity() {
 
@@ -47,6 +50,28 @@ class Busqueda_de_producto : AppCompatActivity() {
         recyclerProductos = findViewById(R.id.recyclerProductos)
 
         recyclerProductos.layoutManager = GridLayoutManager(this, 2)
+        val haySesion = getSharedPreferences("sesion", MODE_PRIVATE)
+            .getString("token", null) != null
+
+        val btnLogin = findViewById<TextView>(R.id.btnIniciarSesionTop)
+        if (haySesion) {
+            btnLogin.visibility = View.GONE
+        } else {
+            btnLogin.setOnClickListener {
+                startActivity(Intent(this, inicio_de_sesion::class.java))
+            }
+        }
+        val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
+        nav.selectedItemId = R.id.nav_catalogo
+        nav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_catalogo -> true
+                R.id.nav_carrito -> { abrir(carrito::class.java); true }
+                R.id.nav_pedidos -> { abrir(VistaMisPedidos::class.java); true }
+                R.id.nav_cuenta -> { abrir(CuentaCliente::class.java); true }
+                else -> false
+            }
+        }
 
         adaptador = ProductosAdaptador(emptyList()) { producto ->
             val intent = android.content.Intent(this, DescripcionDeProducto::class.java)
@@ -89,6 +114,11 @@ class Busqueda_de_producto : AppCompatActivity() {
         presentador.iniciar()
     }
 
+    private fun abrir(destino: Class<*>) {
+        startActivity(Intent(this, destino))
+        overridePendingTransition(0, 0)
+        finish()
+    }
     fun ejecutarBusqueda() {
         if (::presentador.isInitialized && spinnerCategorias.selectedItemPosition >= 0) {
             presentador.seleccionarCategoria(
