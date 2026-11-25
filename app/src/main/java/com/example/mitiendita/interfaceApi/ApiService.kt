@@ -83,7 +83,7 @@ interface ApiService {
         @Body request: CarritoActualizarRequest
     ): CarritoAccionResponse
 
-    @POST("carrito_eliminar.php")
+    @POST("carrito_eliminar.php")//
     suspend fun eliminarDelCarrito(
         @Body request: CarritoEliminarRequest
     ): RespuestaSimple

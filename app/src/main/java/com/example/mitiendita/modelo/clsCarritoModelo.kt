@@ -1,6 +1,7 @@
 package com.example.mitiendita.modelo
 
 class clsCarritoModelo {
+    //
     suspend fun obtenerCarrito(idUsuario: Int): CarritoResponse {
         return RetrofitCliente.apiService.obtenerCarrito(idUsuario)
     }

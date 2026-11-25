@@ -48,7 +48,9 @@ class clsCarritoPresentador(private val vista: carrito) {
                 if (respuesta.exito) {
                     cargarCarrito(idUsuario)
                 } else {
-                    vista.mostrarMensajeError(respuesta.mensaje ?: "No se pudo actualizar la cantidad")
+                    vista.mostrarMensajeError(
+                        respuesta.mensaje ?: "No se pudo actualizar la cantidad"
+                    )
                 }
             } catch (e: Exception) {
                 vista.mostrarMensajeError("Error de conexión: ${e.localizedMessage ?: "Error desconocido"}")
@@ -68,10 +70,40 @@ class clsCarritoPresentador(private val vista: carrito) {
                 if (respuesta.exito) {
                     cargarCarrito(idUsuario)
                 } else {
-                    vista.mostrarMensajeError(respuesta.mensaje ?: "No se pudo eliminar el producto")
+                    vista.mostrarMensajeError(
+                        respuesta.mensaje ?: "No se pudo eliminar el producto"
+                    )
                 }
             } catch (e: Exception) {
                 vista.mostrarMensajeError("Error de conexión: ${e.localizedMessage ?: "Error desconocido"}")
+            }
+        }
+    }
+    fun agregarAlCarrito(
+        idUsuario: Int,
+        idProducto: Int,
+        cantidad: Int,
+        onExito: (String) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        if (idUsuario <= 0 || idProducto <= 0 || cantidad <= 0) {
+            onError("Datos inválidos para agregar al carrito")
+            return
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val respuesta = withContext(Dispatchers.IO) {
+                    modeloCarrito.agregarProducto(idUsuario, idProducto, cantidad)
+                }
+
+                if (respuesta.exito) {
+                    onExito(respuesta.mensaje ?: "Producto agregado al carrito")
+                } else {
+                    onError(respuesta.mensaje ?: "No se pudo agregar el producto")
+                }
+            } catch (e: Exception) {
+                onError("Error de conexión: ${e.localizedMessage ?: "Error desconocido"}")
             }
         }
     }

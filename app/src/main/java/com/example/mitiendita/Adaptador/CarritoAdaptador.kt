@@ -12,6 +12,7 @@ import com.example.mitiendita.modelo.CarritoItem
 import com.example.mitiendita.vista.carrito
 
 class CarritoAdaptador(
+    //
     private val activity: carrito,
     private var listaCarrito: List<CarritoItem>,
     private val onCambiarCantidad: (item: CarritoItem, nuevaCantidad: Int) -> Unit
