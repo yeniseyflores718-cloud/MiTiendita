@@ -6,6 +6,7 @@ import com.example.mitiendita.modelo.EstadoPedidoResponse
 import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
+import com.example.mitiendita.modelo.PedidosResponse
 import com.example.mitiendita.modelo.ProductosResponse
 import com.example.mitiendita.modelo.RegistroRequest
 import com.example.mitiendita.modelo.RegistroResponse
@@ -37,6 +38,11 @@ interface ApiService {
 
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
+
+    @GET("pedidos.php")
+    suspend fun obtenerPedidos(
+        @Query("estado") estado: String? = null
+    ): Response<PedidosResponse>
 
     @GET("obtener_categorias.php")
     suspend fun obtenerCategorias(
