@@ -10,6 +10,7 @@ data class UsuarioData(
     val usuario: String = "",
     @SerialName("nombre_usuario") val nombreUsuario: String = "",
     val correo: String = "",
+    val telefono: String? = null,
     val rol: String = ""
 )
 
