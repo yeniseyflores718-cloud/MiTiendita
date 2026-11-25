@@ -19,7 +19,6 @@ import com.google.android.material.card.MaterialCardView
 import java.util.Collections.emptyList
 
 class ReportesVentaspro : AppCompatActivity() {
-
     private lateinit var btnRegresar: MaterialCardView
     private lateinit var btnFiltroSemana: MaterialButton
     private lateinit var btnFiltroMes: MaterialButton

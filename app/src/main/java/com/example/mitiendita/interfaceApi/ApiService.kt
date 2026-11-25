@@ -1,5 +1,10 @@
 package com.example.mitiendita.interfaceApi
 
+import com.example.mitiendita.modelo.CarritoAccionResponse
+import com.example.mitiendita.modelo.CarritoActualizarRequest
+import com.example.mitiendita.modelo.CarritoAgregarRequest
+import com.example.mitiendita.modelo.CarritoEliminarRequest
+import com.example.mitiendita.modelo.CarritoResponse
 import com.example.mitiendita.modelo.CategoriaResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
@@ -62,4 +67,24 @@ interface ApiService {
 
     @POST("restablecer_contrasena.php")
     suspend fun restablecerContrasena(@Body request: RestablecerRequest): Response<RespuestaSimple>
+
+    @GET("carrito.php")
+    suspend fun obtenerCarrito(
+        @Query("id_usuario") idUsuario: Int
+    ): CarritoResponse
+
+    @POST("carrito_agregar.php")
+    suspend fun agregarAlCarrito(
+        @Body request: CarritoAgregarRequest
+    ): CarritoAccionResponse
+
+    @POST("carrito_actualizar.php")
+    suspend fun actualizarCantidadCarrito(
+        @Body request: CarritoActualizarRequest
+    ): CarritoAccionResponse
+
+    @POST("carrito_eliminar.php")
+    suspend fun eliminarDelCarrito(
+        @Body request: CarritoEliminarRequest
+    ): RespuestaSimple
 }
