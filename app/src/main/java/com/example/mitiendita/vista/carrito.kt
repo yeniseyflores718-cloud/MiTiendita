@@ -79,18 +79,7 @@ class carrito : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
             }
-        val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
-        nav.selectedItemId = R.id.nav_carrito
-        nav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_catalogo -> { abrir(Busqueda_de_producto::class.java); true }
-                R.id.nav_carrito -> true
-                R.id.nav_pedidos -> { abrir(VistaMisPedidos::class.java); true }
-                R.id.nav_cuenta -> { abrir(CuentaCliente::class.java); true }
 
-                else -> false
-            }
-        }
         val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
         nav.selectedItemId = R.id.nav_carrito
         nav.setOnItemSelectedListener { item ->
@@ -131,9 +120,5 @@ class carrito : AppCompatActivity() {
         overridePendingTransition(0, 0)
         finish()
     }
-    private fun abrir(destino: Class<*>) {
-        startActivity(Intent(this, destino))
-        overridePendingTransition(0, 0)
-        finish()
-    }
+
 }
