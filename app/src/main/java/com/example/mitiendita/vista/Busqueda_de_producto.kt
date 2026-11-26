@@ -1,11 +1,14 @@
 package com.example.mitiendita.vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,14 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mitiendita.Adaptador.ProductosAdaptador
 import com.example.mitiendita.R
 import com.example.mitiendita.modelo.Producto
+import com.example.mitiendita.modelo.RetrofitCliente
 import com.example.mitiendita.modelo.dataCategorias
 import com.example.mitiendita.presentador.clsBusquedaProductoPresentador
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Busqueda_de_producto : AppCompatActivity() {
 
     private lateinit var spinnerCategorias: Spinner
     private lateinit var editTxtbuscadordeproducto: EditText
     private lateinit var recyclerProductos: RecyclerView
+    private lateinit var btnIniciarSesionTop: TextView
 
     private lateinit var adaptador: ProductosAdaptador
 
@@ -47,6 +53,21 @@ class Busqueda_de_producto : AppCompatActivity() {
         recyclerProductos = findViewById(R.id.recyclerProductos)
 
         recyclerProductos.layoutManager = GridLayoutManager(this, 2)
+        btnIniciarSesionTop = findViewById(R.id.btnIniciarSesionTop)
+        btnIniciarSesionTop.setOnClickListener {
+            startActivity(Intent(this, inicio_de_sesion::class.java))
+        }
+        val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
+        nav.selectedItemId = R.id.nav_catalogo
+        nav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_catalogo -> true
+                R.id.nav_carrito -> { abrir(carrito::class.java); true }
+                R.id.nav_pedidos -> { abrir(VistaMisPedidos::class.java); true }
+                R.id.nav_cuenta -> { abrir(CuentaCliente::class.java); true }
+                else -> false
+            }
+        }
 
         adaptador = ProductosAdaptador(emptyList()) { producto ->
             val intent = android.content.Intent(this, DescripcionDeProducto::class.java)
@@ -88,7 +109,20 @@ class Busqueda_de_producto : AppCompatActivity() {
 
         presentador.iniciar()
     }
+    override fun onResume() {
+        super.onResume()
+        presentador.verificarSesion()   // la vista no decide: le pregunta al presentador
+    }
 
+    // El presentador llama a esta función para mostrar u ocultar el botón
+    fun mostrarBotonIniciarSesion(mostrar: Boolean) {
+        btnIniciarSesionTop.visibility = if (mostrar) View.VISIBLE else View.GONE
+    }
+    private fun abrir(destino: Class<*>) {
+        startActivity(Intent(this, destino))
+        overridePendingTransition(0, 0)
+        finish()
+    }
     fun ejecutarBusqueda() {
         if (::presentador.isInitialized && spinnerCategorias.selectedItemPosition >= 0) {
             presentador.seleccionarCategoria(
@@ -127,5 +161,14 @@ class Busqueda_de_producto : AppCompatActivity() {
 
     fun mostrarError(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+    }
+    fun irAAdministrador() {
+        startActivity(Intent(this, administrador::class.java))
+        finish()
+    }
+
+    fun irAEmpleado() {
+        startActivity(Intent(this, MenuEmpleado::class.java))
+        finish()
     }
 }

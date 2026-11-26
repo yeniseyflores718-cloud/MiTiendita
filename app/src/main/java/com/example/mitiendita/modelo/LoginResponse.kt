@@ -7,16 +7,17 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UsuarioData(
     @SerialName("id_usuario") val idUsuario: Int = 0,
-    val usuario: String = "",
-    @SerialName("nombre_usuario") val nombreUsuario: String = "",
-    val correo: String = "",
-    val rol: String = ""
+    @SerialName("usuario") val usuario: String = "",
+    @SerialName("nombre_usuario") val nombreUsuario: String? = null,
+    @SerialName("correo") val correo: String = "",
+    @SerialName("telefono") val telefono: String? = null,
+    @SerialName("rol") val rol: String = ""
 )
 
 @Serializable
 data class LoginResponse(
-    val exito: Boolean = false,
-    val mensaje: String = "",
-    val token: String? = null,
-    val usuario: UsuarioData? = null
+    @SerialName("exito") val exito: Boolean = false,
+    @SerialName("mensaje") val mensaje: String = "",
+    @SerialName("token") val token: String = "",
+    @SerialName("usuario") val usuario: UsuarioData? = null
 )

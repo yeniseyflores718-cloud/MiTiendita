@@ -1,5 +1,10 @@
 package com.example.mitiendita.interfaceApi
 
+import com.example.mitiendita.modelo.CarritoAccionResponse
+import com.example.mitiendita.modelo.CarritoActualizarRequest
+import com.example.mitiendita.modelo.CarritoAgregarRequest
+import com.example.mitiendita.modelo.CarritoEliminarRequest
+import com.example.mitiendita.modelo.CarritoResponse
 import com.example.mitiendita.modelo.CategoriaResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
@@ -7,6 +12,7 @@ import com.example.mitiendita.modelo.InicioAdminResponse
 import com.example.mitiendita.modelo.InventarioResponse
 import com.example.mitiendita.modelo.LoginRequest
 import com.example.mitiendita.modelo.LoginResponse
+import com.example.mitiendita.modelo.PedidosResponse
 import com.example.mitiendita.modelo.ProductosResponse
 import com.example.mitiendita.modelo.RegistroRequest
 import com.example.mitiendita.modelo.RegistroResponse
@@ -22,7 +28,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("login.php")
-    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+    suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
     @GET("productos.php")
     suspend fun obtenerProductos(): ProductosResponse
 
@@ -38,6 +44,11 @@ interface ApiService {
 
     @POST("estado_pedido.php")
     suspend fun cambiarEstadoPedido(@Body request: EstadoPedidoRequest): EstadoPedidoResponse
+
+    @GET("pedidos.php")
+    suspend fun obtenerPedidos(
+        @Query("estado") estado: String? = null
+    ): Response<PedidosResponse>
 
     @GET("obtener_categorias.php")
     suspend fun obtenerCategorias(
@@ -68,4 +79,24 @@ interface ApiService {
 
     @POST("restablecer_contrasena.php")
     suspend fun restablecerContrasena(@Body request: RestablecerRequest): Response<RespuestaSimple>
+
+    @GET("carrito.php")
+    suspend fun obtenerCarrito(
+        @Query("id_usuario") idUsuario: Int
+    ): CarritoResponse
+
+    @POST("carrito_agregar.php")
+    suspend fun agregarAlCarrito(
+        @Body request: CarritoAgregarRequest
+    ): CarritoAccionResponse
+
+    @POST("carrito_actualizar.php")
+    suspend fun actualizarCantidadCarrito(
+        @Body request: CarritoActualizarRequest
+    ): CarritoAccionResponse
+
+    @POST("carrito_eliminar.php")//
+    suspend fun eliminarDelCarrito(
+        @Body request: CarritoEliminarRequest
+    ): RespuestaSimple
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/item_carrito.xml -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/ivProducto"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="Imagen del producto"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+
+        <!-- Nombre, presentación y precio -->
+        <LinearLayout
+            android:id="@+id/infoProducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/controlCantidad"
+            app:layout_constraintStart_toEndOf="@id/ivProducto"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/carrito_texto"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="Aceite vegetal" />
+
+            <TextView
+                android:id="@+id/tvPresentacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#757575"
+                android:textSize="12sp"
+                tools:text="Botella 900 ml" />
+
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/carrito_precio"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="$45.00" />
+        </LinearLayout>
+
+        <!-- Control de cantidad -->
+        <LinearLayout
+            android:id="@+id/controlCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/btnMenos"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text="−"
+                android:textColor="@color/carrito_texto"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="24dp"
+                android:gravity="center"
+                android:textColor="@color/carrito_texto"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/btnMas"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/carrito_texto"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

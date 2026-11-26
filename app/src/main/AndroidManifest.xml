@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MiApp"
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -30,22 +32,23 @@
             android:exported="false" />
         <activity
             android:name=".vista.inicio_de_sesion"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".vista.crear_cuenta"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista.Busqueda_de_producto"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".vista.DescripcionDeProducto"
             android:exported="false"
@@ -76,6 +79,18 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".vista.activity_restablecer_contrasena"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.carrito"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.confirmarPedido"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vista.pedido_registrado"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
