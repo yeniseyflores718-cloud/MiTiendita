@@ -27,7 +27,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("login.php")
-    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+    suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
     @GET("productos.php")
     suspend fun obtenerProductos(): ProductosResponse
 
