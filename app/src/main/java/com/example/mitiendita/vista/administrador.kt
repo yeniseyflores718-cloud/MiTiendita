@@ -1,16 +1,17 @@
 package com.example.mitiendita.vista
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mitiendita.R
-import android.content.Intent
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import com.example.mitiendita.modelo.InicioAdminResponse
+import com.example.mitiendita.modelo.SesionLocal
 import com.example.mitiendita.presentador.clsInicioAdminPresentador
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -59,7 +60,8 @@ class administrador : AppCompatActivity() {
         tvNombreUsuario.text = nombreUsuario
         tvRol.text = rolUsuario.replaceFirstChar { it.uppercase() }
 
-        presentadorInicioAdmin = clsInicioAdminPresentador(this)
+        val sesion = SesionLocal(this)
+        presentadorInicioAdmin = clsInicioAdminPresentador(this, sesion)
         presentadorInicioAdmin.cargarInicioAdmin(idUsuario)
 
         cardProductos.setOnClickListener {
@@ -75,7 +77,7 @@ class administrador : AppCompatActivity() {
         }
 
         btnSalir.setOnClickListener {
-            finish()
+            presentadorInicioAdmin.cerrarSesion()
         }
 
         bottom_nav.selectedItemId = R.id.nav_menu
@@ -92,6 +94,7 @@ class administrador : AppCompatActivity() {
             }
         }
     }
+
     fun mostrarInicioAdmin(respuesta: InicioAdminResponse) {
         val montoHoy = respuesta.ventas?.hoy?.monto ?: 0.0
         val pedidosPorAtender = respuesta.pedidos?.porAtender ?: 0
@@ -101,7 +104,17 @@ class administrador : AppCompatActivity() {
         tvPedidos.text = pedidosPorAtender.toString()
         tvStockBajo.text = stockBajo.toString()
     }
+
     fun mostrarErrorInicioAdmin(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+    }
+
+    fun irALogin() {
+        startActivity(
+            Intent(this, inicio_de_sesion::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+        )
+        finish()
     }
 }
