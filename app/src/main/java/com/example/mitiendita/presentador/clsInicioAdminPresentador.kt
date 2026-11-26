@@ -1,5 +1,6 @@
 package com.example.mitiendita.presentador
 
+import com.example.mitiendita.modelo.SesionLocal
 import com.example.mitiendita.modelo.clsInicioAdminModelo
 import com.example.mitiendita.vista.administrador
 import kotlinx.coroutines.CoroutineScope
@@ -7,8 +8,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class clsInicioAdminPresentador(private val vista: administrador) {
+class clsInicioAdminPresentador(
+    private val vista: administrador,
+    private val sesion: SesionLocal
+) {
     private val modeloInicioAdmin = clsInicioAdminModelo()
+
     fun cargarInicioAdmin(idUsuario: Int) {
         if (idUsuario <= 0) {
             vista.mostrarErrorInicioAdmin("ID de usuario no válido")
@@ -30,6 +35,10 @@ class clsInicioAdminPresentador(private val vista: administrador) {
                 vista.mostrarErrorInicioAdmin("Error de conexión: ${e.localizedMessage ?: "Error desconocido"}")
             }
         }
+    }
 
+    fun cerrarSesion() {
+        sesion.cerrar()
+        vista.irALogin()
     }
 }
