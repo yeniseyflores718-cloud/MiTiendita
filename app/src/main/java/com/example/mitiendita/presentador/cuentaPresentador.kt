@@ -4,16 +4,14 @@ import com.example.mitiendita.modelo.SesionLocal
 
 interface CuentaView {
     fun mostrarPerfil(nombre: String, correo: String, telefono: String, iniciales: String)
-    fun irALogin()
+    fun irAProductos()
 }
 
 class cuentaPresentador(
-    private val view: CuentaView,
-    private val sesion: SesionLocal
-) {
+    private val view: CuentaView, private val sesion: SesionLocal) {
     fun cargarPerfil() {
         val p = sesion.perfil()
-        if (p == null) { view.irALogin(); return }
+        if (p == null) { view.irAProductos(); return }
 
         val iniciales = p.nombre.split(" ")
             .filter { it.isNotBlank() }
@@ -31,6 +29,6 @@ class cuentaPresentador(
 
     fun cerrarSesion() {
         sesion.cerrar()
-        view.irALogin()
+        view.irAProductos()
     }
 }
