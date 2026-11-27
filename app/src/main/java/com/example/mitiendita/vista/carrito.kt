@@ -67,18 +67,19 @@ class carrito : AppCompatActivity() {
                 Toast.makeText(this, "Tu carrito está vacío", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            Toast.makeText(
-                this,
-                "Continuando con total: $" + totalActual,
-                Toast.LENGTH_SHORT
-            ).show()
+
+            val intent = Intent(this, confirmarPedido::class.java).apply {
+                putExtra("id_usuario", idUsuario)
+                putExtra("total", totalActual)
+            }
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-            }
+        }
 
         val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
         nav.selectedItemId = R.id.nav_carrito
@@ -115,10 +116,10 @@ class carrito : AppCompatActivity() {
     fun mostrarMensajeError(error: String) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
+
     private fun abrir(destino: Class<*>) {
         startActivity(Intent(this, destino))
         overridePendingTransition(0, 0)
         finish()
     }
-
 }

@@ -6,6 +6,8 @@ import com.example.mitiendita.modelo.CarritoAgregarRequest
 import com.example.mitiendita.modelo.CarritoEliminarRequest
 import com.example.mitiendita.modelo.CarritoResponse
 import com.example.mitiendita.modelo.CategoriaResponse
+import com.example.mitiendita.modelo.CrearPedidoRequest
+import com.example.mitiendita.modelo.CrearPedidoResponse
 import com.example.mitiendita.modelo.EstadoPedidoRequest
 import com.example.mitiendita.modelo.EstadoPedidoResponse
 import com.example.mitiendita.modelo.InicioAdminResponse
@@ -99,4 +101,7 @@ interface ApiService {
     suspend fun eliminarDelCarrito(
         @Body request: CarritoEliminarRequest
     ): RespuestaSimple
+
+    @POST("crear_pedido.php")
+    suspend fun crearPedido(@Body request: CrearPedidoRequest): CrearPedidoResponse
 }
