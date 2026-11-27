@@ -10,4 +10,5 @@ data class CrearPedidoResponse(
     val codigo_pedido: String? = null,
     val estado: String? = null,
     val total: Double = 0.0
+    //
 )

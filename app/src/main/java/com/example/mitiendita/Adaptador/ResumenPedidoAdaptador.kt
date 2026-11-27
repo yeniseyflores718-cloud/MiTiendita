@@ -23,6 +23,7 @@ class ResumenPedidoAdaptador(
         return ViewHolder(vista)
     }
 
+    //
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = lista[position]
         val subtotal = if (item.subtotal > 0.0) item.subtotal else (item.precioV * item.cantidad)

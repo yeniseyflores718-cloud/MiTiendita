@@ -61,6 +61,7 @@ class clsConfirmarPedidoPresentador(private val vista: confirmarPedido) {
                         estado = estado,
                         total = respuesta.total
                     )
+                    //
                 } else {
                     vista.mostrarMensajeError(respuesta.mensaje.ifEmpty { "No se pudo registrar el pedido" })
                 }

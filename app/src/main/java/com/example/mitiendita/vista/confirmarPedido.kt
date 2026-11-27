@@ -116,6 +116,7 @@ class confirmarPedido : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
 
+        //
         val intent = Intent(this, VistaMisPedidos::class.java).apply {
             putExtra("id_usuario", idUsuario)
             putExtra("folio_pedido", folio)

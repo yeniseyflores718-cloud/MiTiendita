@@ -10,4 +10,5 @@ data class CrearPedidoRequest(
     val direccion_entrega: String? = null,
     val telefono_contacto: String? = null,
     val notas: String? = null
+    //
 )
