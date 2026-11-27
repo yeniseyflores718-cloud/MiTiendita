@@ -39,22 +39,14 @@
                 app:layout_constraintVertical_bias="0.3"
                 app:layout_constraintWidth_max="600dp">
 
-                <ImageView
-                    android:id="@+id/ivExito"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieExito"
+                    android:layout_width="190dp"
+                    android:layout_height="215dp"
                     android:contentDescription="Pedido registrado"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/check_circulo" />
-                <TextView
-                    android:id="@+id/tvTituloExito"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="¡Pedido registrado!"
-                    android:textColor="@color/carrito_texto"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="false"
+                    app:lottie_rawRes="@raw/confirmarpedido" />
 
                 <TextView
                     android:id="@+id/tvMensaje"

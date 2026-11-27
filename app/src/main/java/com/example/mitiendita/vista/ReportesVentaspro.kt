@@ -1,7 +1,9 @@
 package com.example.mitiendita.vista
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -16,9 +18,9 @@ import com.example.mitiendita.modelo.ReportesResponse
 import com.example.mitiendita.presentador.clsReportesPresentador
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import java.util.Collections.emptyList
 
 class ReportesVentaspro : AppCompatActivity() {
+
     private lateinit var btnRegresar: MaterialCardView
     private lateinit var btnFiltroSemana: MaterialButton
     private lateinit var btnFiltroMes: MaterialButton
@@ -48,24 +50,43 @@ class ReportesVentaspro : AppCompatActivity() {
         txtTotalProductosVendidos = findViewById(R.id.txtTotalProductosVendidos)
         rvProductosMasVendidos = findViewById(R.id.rvProductosMasVendidos)
 
-        presentador = clsReportesPresentador(this)
+        presentador = clsReportesPresentador(vista = this)
 
-        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
-
-        rvProductosMasVendidos.layoutManager = LinearLayoutManager(this)
-        adaptadorProductos_R = ProductosMasVendidosAdaptador(this, emptyList())
-        rvProductosMasVendidos.adapter = adaptadorProductos_R
-
-        btnRegresar.setOnClickListener { finish() }
-        btnFiltroSemana.setOnClickListener { seleccionarPeriodo("semana") }
-        btnFiltroMes.setOnClickListener { seleccionarPeriodo("mes") }
+        btnRegresar.setOnClickListener(this::ejecutarRegresar)
+        btnFiltroSemana.setOnClickListener(this::ejecutarFiltroSemana)
+        btnFiltroMes.setOnClickListener(this::ejecutarFiltroMes)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        ejecutarCargarInicial()
+        configurarRecycler()
         seleccionarPeriodo("semana")
+    }
+
+    private fun ejecutarCargarInicial() {
+        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
+    }
+
+    private fun configurarRecycler() {
+        rvProductosMasVendidos.layoutManager = LinearLayoutManager(this)
+        adaptadorProductos_R = ProductosMasVendidosAdaptador(this, emptyList())
+        rvProductosMasVendidos.adapter = adaptadorProductos_R
+    }
+
+    private fun ejecutarRegresar(v: View) {
+        finish()
+    }
+
+    private fun ejecutarFiltroSemana(v: View) {
+        seleccionarPeriodo("semana")
+    }
+
+    private fun ejecutarFiltroMes(v: View) {
+        seleccionarPeriodo("mes")
     }
 
     private fun seleccionarPeriodo(periodo: String) {
@@ -78,19 +99,19 @@ class ReportesVentaspro : AppCompatActivity() {
         if (periodo == "semana") {
             btnFiltroSemana.setBackgroundColor(Color.parseColor("#DCEEF9"))
             btnFiltroSemana.setTextColor(Color.parseColor("#1677D2"))
-            btnFiltroSemana.strokeColor = android.content.res.ColorStateList.valueOf(Color.parseColor("#1677D2"))
+            btnFiltroSemana.strokeColor = ColorStateList.valueOf(Color.parseColor("#1677D2"))
 
             btnFiltroMes.setBackgroundColor(Color.parseColor("#FFFFFF"))
             btnFiltroMes.setTextColor(Color.parseColor("#8A8A8A"))
-            btnFiltroMes.strokeColor = android.content.res.ColorStateList.valueOf(Color.parseColor("#EAEAEA"))
+            btnFiltroMes.strokeColor = ColorStateList.valueOf(Color.parseColor("#EAEAEA"))
         } else {
             btnFiltroMes.setBackgroundColor(Color.parseColor("#DCEEF9"))
             btnFiltroMes.setTextColor(Color.parseColor("#1677D2"))
-            btnFiltroMes.strokeColor = android.content.res.ColorStateList.valueOf(Color.parseColor("#1677D2"))
+            btnFiltroMes.strokeColor = ColorStateList.valueOf(Color.parseColor("#1677D2"))
 
             btnFiltroSemana.setBackgroundColor(Color.parseColor("#FFFFFF"))
             btnFiltroSemana.setTextColor(Color.parseColor("#8A8A8A"))
-            btnFiltroSemana.strokeColor = android.content.res.ColorStateList.valueOf(Color.parseColor("#EAEAEA"))
+            btnFiltroSemana.strokeColor = ColorStateList.valueOf(Color.parseColor("#EAEAEA"))
         }
     }
 
