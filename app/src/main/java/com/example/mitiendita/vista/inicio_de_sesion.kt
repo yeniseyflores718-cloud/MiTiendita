@@ -1,10 +1,14 @@
 package com.example.mitiendita.vista
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +23,10 @@ class inicio_de_sesion : AppCompatActivity() {
     private lateinit var txtCorreo: EditText
     private lateinit var txtContrasena: EditText
     private lateinit var btnLogin: Button
+    private lateinit var txtCrearCuenta: TextView
+    private lateinit var txtOlvidaste: TextView
+
+    private var contrasenaVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +48,20 @@ class inicio_de_sesion : AppCompatActivity() {
 
         // 3. Qué pasa al tocar el botón
         btnLogin.setOnClickListener(this::ejecutarInicioSesion)
+        txtCrearCuenta = findViewById(R.id.textView2)
+        txtOlvidaste = findViewById(R.id.textView15)
+
+
+        txtCrearCuenta.setOnClickListener {
+            startActivity(Intent(this, crear_cuenta::class.java))
+        }
+
+        txtOlvidaste.setOnClickListener {
+            startActivity(Intent(this, Recuperar_Contrasena::class.java))
+        }
+
+
+        configurarOjito()
     }
 
     fun ejecutarInicioSesion(v: View) {
@@ -75,5 +97,37 @@ class inicio_de_sesion : AppCompatActivity() {
     // El presentador llama a esta función cuando algo salió mal
     fun mostrarError(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun configurarOjito() {
+        txtContrasena.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val icono = txtContrasena.compoundDrawablesRelative[2]   // el drawableEnd
+                if (icono != null &&
+                    event.x >= v.width - v.paddingEnd - icono.bounds.width() - 60) {
+                    alternarContrasena()
+                    v.performClick()
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+    }
+
+    private fun alternarContrasena() {
+        contrasenaVisible = !contrasenaVisible
+        val fuente = txtContrasena.typeface   // se guarda para que la letra no cambie
+
+        txtContrasena.inputType = if (contrasenaVisible) {
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        } else {
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+
+        txtContrasena.typeface = fuente
+        txtContrasena.setSelection(txtContrasena.text.length)   // cursor al final
+
+        val icono = if (contrasenaVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+        txtContrasena.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, icono, 0)
     }
 }
