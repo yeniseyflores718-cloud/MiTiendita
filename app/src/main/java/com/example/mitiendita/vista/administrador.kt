@@ -2,6 +2,8 @@ package com.example.mitiendita.vista
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +30,7 @@ class administrador : AppCompatActivity() {
     private lateinit var cardProductos: MaterialCardView
     private lateinit var cardReportes: MaterialCardView
     private lateinit var bottom_nav: BottomNavigationView
+
     private lateinit var presentadorInicioAdmin: clsInicioAdminPresentador
 
     private var idUsuario: Int = 1
@@ -36,16 +39,6 @@ class administrador : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_administrador)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
-        val nombreUsuario = intent.getStringExtra("nombre_usuario") ?: "Administrador"
-        val rolUsuario = intent.getStringExtra("rol") ?: "administrador"
 
         tvNombreUsuario = findViewById(R.id.tvNombreUsuario)
         tvRol = findViewById(R.id.tvRol)
@@ -57,41 +50,64 @@ class administrador : AppCompatActivity() {
         cardReportes = findViewById(R.id.cardReportes)
         bottom_nav = findViewById(R.id.bottom_nav)
 
+        val sesion = SesionLocal(this)
+        presentadorInicioAdmin = clsInicioAdminPresentador(vista = this, sesion = sesion)
+
+        cardProductos.setOnClickListener(this::ejecutarAbrirProductos)
+        cardReportes.setOnClickListener(this::ejecutarAbrirReportes)
+        btnSalir.setOnClickListener(this::ejecutarSalir)
+        bottom_nav.setOnItemSelectedListener(this::ejecutarNavegacionInferior)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        ejecutarCargarDatosUsuario()
+        configurarBottomNav()
+        presentadorInicioAdmin.cargarInicioAdmin(idUsuario)
+    }
+
+    private fun ejecutarCargarDatosUsuario() {
+        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
+        val nombreUsuario = intent.getStringExtra("nombre_usuario") ?: "Administrador"
+        val rolUsuario = intent.getStringExtra("rol") ?: "administrador"
+
         tvNombreUsuario.text = nombreUsuario
         tvRol.text = rolUsuario.replaceFirstChar { it.uppercase() }
+    }
 
-        val sesion = SesionLocal(this)
-        presentadorInicioAdmin = clsInicioAdminPresentador(this, sesion)
-        presentadorInicioAdmin.cargarInicioAdmin(idUsuario)
-
-        cardProductos.setOnClickListener {
-            val intent = Intent(this, inventario::class.java)
-            intent.putExtra("id_usuario", idUsuario)
-            startActivity(intent)
-        }
-
-        cardReportes.setOnClickListener {
-            val intent = Intent(this, ReportesVentaspro::class.java)
-            intent.putExtra("id_usuario", idUsuario)
-            startActivity(intent)
-        }
-
-        btnSalir.setOnClickListener {
-            presentadorInicioAdmin.cerrarSesion()
-        }
-
+    private fun configurarBottomNav() {
         bottom_nav.selectedItemId = R.id.nav_menu
-        bottom_nav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_menu -> true
-                R.id.nav_inventario -> {
-                    val intent = Intent(this, inventario::class.java)
-                    intent.putExtra("id_usuario", idUsuario)
-                    startActivity(intent)
-                    true
-                }
-                else -> true
+    }
+
+    private fun ejecutarAbrirProductos(v: View) {
+        val intent = Intent(this, inventario::class.java)
+        intent.putExtra("id_usuario", idUsuario)
+        startActivity(intent)
+    }
+
+    private fun ejecutarAbrirReportes(v: View) {
+        val intent = Intent(this, ReportesVentaspro::class.java)
+        intent.putExtra("id_usuario", idUsuario)
+        startActivity(intent)
+    }
+
+    private fun ejecutarSalir(v: View) {
+        presentadorInicioAdmin.cerrarSesion()
+    }
+
+    private fun ejecutarNavegacionInferior(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_menu -> true
+            R.id.nav_inventario -> {
+                val intent = Intent(this, inventario::class.java)
+                intent.putExtra("id_usuario", idUsuario)
+                startActivity(intent)
+                true
             }
+            else -> true
         }
     }
 

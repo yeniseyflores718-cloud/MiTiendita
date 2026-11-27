@@ -2,6 +2,8 @@ package com.example.mitiendita.vista
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -19,7 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 
 class carrito : AppCompatActivity() {
-    //
+
     private lateinit var btnAtras: ImageButton
     private lateinit var tvTitulo: TextView
     private lateinit var rvCarrito: RecyclerView
@@ -47,10 +49,29 @@ class carrito : AppCompatActivity() {
         btnContinuar = findViewById(R.id.btnContinuar)
         bottomNavCliente = findViewById(R.id.bottomNavCliente)
 
-        presentador = clsCarritoPresentador(this)
+        presentador = clsCarritoPresentador(vista = this)
 
+        btnAtras.setOnClickListener(this::ejecutarAtras)
+        btnContinuar.setOnClickListener(this::ejecutarContinuar)
+        bottomNavCliente.setOnItemSelectedListener(this::ejecutarNavegacionInferior)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        ejecutarCargarCarrito()
+        configurarRecycler()
+        configurarBottomNav()
+    }
+
+    private fun ejecutarCargarCarrito() {
         idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
+        presentador.cargarCarrito(idUsuario)
+    }
 
+    private fun configurarRecycler() {
         rvCarrito.layoutManager = LinearLayoutManager(this)
         adaptadorCarrito = CarritoAdaptador(this, emptyList()) { item, nuevaCantidad ->
             if (nuevaCantidad <= 0) {
@@ -60,41 +81,37 @@ class carrito : AppCompatActivity() {
             }
         }
         rvCarrito.adapter = adaptadorCarrito
+    }
 
-        btnAtras.setOnClickListener { finish() }
+    private fun configurarBottomNav() {
+        bottomNavCliente.selectedItemId = R.id.nav_carrito
+    }
 
-        btnContinuar.setOnClickListener {
-            if (adaptadorCarrito.itemCount == 0) {
-                Toast.makeText(this, "Tu carrito está vacío", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+    private fun ejecutarAtras(v: View) {
+        finish()
+    }
 
-            val intent = Intent(this, confirmarPedido::class.java).apply {
-                putExtra("id_usuario", idUsuario)
-                putExtra("total", totalActual)
-            }
-            startActivity(intent)
+    private fun ejecutarContinuar(v: View) {
+        if (adaptadorCarrito.itemCount == 0) {
+            Toast.makeText(this, "Tu carrito está vacío", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val intent = Intent(this, confirmarPedido::class.java).apply {
+            putExtra("id_usuario", idUsuario)
+            putExtra("total", totalActual)
         }
+        startActivity(intent)
+    }
 
-        val nav = findViewById<BottomNavigationView>(R.id.bottomNavCliente)
-        nav.selectedItemId = R.id.nav_carrito
-        nav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_catalogo -> { abrir(Busqueda_de_producto::class.java); true }
-                R.id.nav_carrito -> true
-                R.id.nav_pedidos -> { abrir(VistaMisPedidos::class.java); true }
-                R.id.nav_cuenta -> { abrir(CuentaCliente::class.java); true }
-                else -> false
-            }
+    private fun ejecutarNavegacionInferior(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_catalogo -> { abrir(Busqueda_de_producto::class.java); true }
+            R.id.nav_carrito -> true
+            R.id.nav_pedidos -> { abrir(VistaMisPedidos::class.java); true }
+            R.id.nav_cuenta -> { abrir(CuentaCliente::class.java); true }
+            else -> false
         }
-
-        presentador.cargarCarrito(idUsuario)
     }
 
     fun mostrarCarrito(respuesta: CarritoResponse) {

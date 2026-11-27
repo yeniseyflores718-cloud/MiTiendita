@@ -2,6 +2,7 @@ package com.example.mitiendita.vista
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.TextView
@@ -40,12 +41,6 @@ class confirmarPedido : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_confirmar_pedido)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rootconfirmar)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         btnAtras = findViewById(R.id.btnAtras)
         rvResumen = findViewById(R.id.rvResumen)
         tvTotal = findViewById(R.id.tvTotal)
@@ -53,35 +48,53 @@ class confirmarPedido : AppCompatActivity() {
         rbEfectivo = findViewById(R.id.rbEfectivo)
         btnConfirmarPedido = findViewById(R.id.btnConfirmarPedido)
 
-        presentador = clsConfirmarPedidoPresentador(this)
-        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
+        presentador = clsConfirmarPedidoPresentador(vista = this)
 
+        btnAtras.setOnClickListener(this::ejecutarAtras)
+        cardEfectivo.setOnClickListener(this::ejecutarSeleccionarEfectivo)
+        btnConfirmarPedido.setOnClickListener(this::ejecutarConfirmarPedido)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rootconfirmar)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        configurarRecycler()
+        ejecutarCargarResumen()
+    }
+
+    private fun configurarRecycler() {
         rvResumen.layoutManager = LinearLayoutManager(this)
         adaptadorResumen = ResumenPedidoAdaptador(emptyList())
         rvResumen.adapter = adaptadorResumen
+    }
 
-        btnAtras.setOnClickListener { finish() }
-
-        cardEfectivo.setOnClickListener {
-            rbEfectivo.isChecked = true
-        }
-
-        btnConfirmarPedido.setOnClickListener {
-            if (adaptadorResumen.itemCount == 0) {
-                Toast.makeText(this, "No hay productos en el resumen", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Arma el request para registrar el pedido como pendiente
-            val request = CrearPedidoRequest(
-                id_usuario = idUsuario,
-                id_metodo_pago = if (rbEfectivo.isChecked) 1 else 1,
-                tipo_entrega = "recoger"
-            )
-            presentador.confirmarPedido(request)
-        }
-
+    private fun ejecutarCargarResumen() {
+        idUsuario = intent.getIntExtra("id_usuario", intent.getIntExtra("idUsuario", 1))
         presentador.cargarResumen(idUsuario)
+    }
+
+    private fun ejecutarAtras(v: View) {
+        finish()
+    }
+
+    private fun ejecutarSeleccionarEfectivo(v: View) {
+        rbEfectivo.isChecked = true
+    }
+
+    private fun ejecutarConfirmarPedido(v: View) {
+        if (adaptadorResumen.itemCount == 0) {
+            Toast.makeText(this, "No hay productos en el resumen", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val request = CrearPedidoRequest(
+            id_usuario = idUsuario,
+            id_metodo_pago = if (rbEfectivo.isChecked) 1 else 1,
+            tipo_entrega = "recoger"
+        )
+        presentador.confirmarPedido(request)
     }
 
     fun mostrarResumen(respuesta: CarritoResponse) {
@@ -110,20 +123,12 @@ class confirmarPedido : AppCompatActivity() {
         total: Double
     ) {
         val montoFinal = if (total > 0.0) total else totalActual
-        Toast.makeText(
-            this,
-            "¡Pedido registrado! $folio · Estado: $estado · Total: $${String.format("%.2f", montoFinal)}",
-            Toast.LENGTH_LONG
-        ).show()
 
-        //
-        val intent = Intent(this, VistaMisPedidos::class.java).apply {
+        val intent = Intent(this, pedido_registrado::class.java).apply {
             putExtra("id_usuario", idUsuario)
+            putExtra("idUsuario", idUsuario)
             putExtra("folio_pedido", folio)
-            putExtra("estado_pedido", estado)
-            putExtra("metodo_pago", metodoPagoTexto)
             putExtra("total_pedido", montoFinal)
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         startActivity(intent)
         finish()
