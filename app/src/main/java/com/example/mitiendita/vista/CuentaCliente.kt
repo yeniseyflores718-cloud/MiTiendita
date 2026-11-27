@@ -56,8 +56,8 @@ class CuentaCliente : AppCompatActivity(), CuentaView {
         findViewById<TextView>(R.id.tvIniciales).text = iniciales
     }
 
-    override fun irALogin() {
-        startActivity(Intent(this, inicio_de_sesion::class.java).apply {
+    override fun irAProductos() {
+        startActivity(Intent(this, Busqueda_de_producto::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
     }
